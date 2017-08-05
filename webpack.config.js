@@ -5,10 +5,13 @@ const HTMLWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
   context : __dirname,
   devtool : debug ? "inline-sourcemap" : null,
-  entry   : "./js/index.js",
+  entry   : {
+    'index'  : "./js/index.js", 
+    'landing': "./js/landing.js"
+  },
   output  : {
     path  : __dirname+'/build',
-    filename : 'bundle.js'
+    filename : 'bundle-[name].js'
   },
   watch   : true, // # To enable webpack watch on entry files.
   module  : {
@@ -44,21 +47,17 @@ module.exports = {
   },
   plugins : [
     new HTMLWebpackPlugin({
+      title: 'Welcome To Webpack',
+      filename: "first.html",
+      template: 'index.html',
+      chunks: ['index']
+    }),
+    new HTMLWebpackPlugin({
       title : 'Welcome To Webpack',
-      filename: 'asserts/index.html'
+      filename : "landing_build.html",
+      template : 'landing.html',
+      chunks: ['landing', 'index']
     })
   ]
 }
 
-
-const generatePlugins() {
-  let plugins = [];
-
-
-}
-
-const HTMLConfig = [
-  {
-    'template' : 
-  }
-]
